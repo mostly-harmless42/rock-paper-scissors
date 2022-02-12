@@ -12,9 +12,7 @@ function humanPlay() {
   return window.prompt('type \'rock\', \'paper\', or \'scissors\': ').toLowerCase();
 }
 
-function round(human = humanPlay(), computer = computerPlay()) {
-  console.log(`${human} vs ${computer}`);
-
+function round(human, computer) {
   switch (human) {
     case 'rock':
       switch (computer) {
@@ -37,26 +35,28 @@ function round(human = humanPlay(), computer = computerPlay()) {
   }
 }
 
-
 function game(rounds) {
-  let record = [];
-  let wins = losses = ties = 0;
-
-  for (x = 0; x <= rounds; x++) {
-    let r = round()
-    console.log(r)
-    record.push(r)
-  }
-
-  for (x=0; x <= rounds; x++) {
-    switch (record[x]) {
-      case 'tie': {ties++}
-      case 'win': {wins++}
-      case 'loss': {losses++}
+  let wins = 0;
+  let losses = 0;
+  let ties = 0;
+  for (x=0; x<rounds; x++) {
+    let human = humanPlay();
+    let computer = computerPlay();
+    console.log(`${human} vs ${computer}`);
+    let r = round(human, computer);
+    console.log(r);
+    switch (r) {
+      case 'tie': ties++; break;
+      case 'win': wins++; break;
+      case 'lose': losses++; break;
     }
   }
+  if (wins>losses) {console.log("Won game!");}
+  else if (losses>wins) {console.log("Lost game!");}
+  else {console.log("Tie!");}
+  console.log(`with ${wins} wins, ${losses} losses, and ${ties} ties`);
 }
 
+let numR = window.prompt('Enter number of rounds: ');
 
-game(5)
-
+game(numR);
